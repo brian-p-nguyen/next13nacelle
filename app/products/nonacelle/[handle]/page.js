@@ -161,7 +161,7 @@ export default async function Page({ params }) {
   const { data: { product } } = shopifyData
   // console.log('product', product)
   const updatedProduct = transformProduct(product)
-  console.log('updatedProduct', updatedProduct.content.media)
+  // console.log('updatedProduct', updatedProduct.content.media)
 
   // Contentful
   const contentfulData = await getContentfulData(handle)
