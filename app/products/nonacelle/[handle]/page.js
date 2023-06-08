@@ -36,6 +36,15 @@ async function getShopifyData(handle) {
             title
             handle
             description
+            media(first: 50) {
+              edges {
+                node {
+                  previewImage {
+                    url
+                  }
+                }
+              }
+            }
             featuredImage {
               url
             }
@@ -48,6 +57,9 @@ async function getShopifyData(handle) {
                 node {
                   availableForSale
                   quantityAvailable
+                  image {
+                    url
+                  }
                   price {
                     amount
                     currencyCode
@@ -76,9 +88,13 @@ async function getShopifyData(handle) {
 function transformProduct(product) {
   // Update variant shape
   product.variants = product.variants.edges.map(({ node }) => {
-    node.price = node.price.amount
+    node.price = Number(node.price.amount)
+    node.compareAtPrice = Number(node.compareAtPrice.amount)
     node.content = {
-      selectedOptions: node.selectedOptions
+      selectedOptions: node.selectedOptions,
+      featuredMedia: {
+        src: node.image.url
+      }
     }
 
     return node
@@ -89,8 +105,14 @@ function transformProduct(product) {
     title: product.title,
     handle: product.handle,
     options: product.options,
-    media: [product.featuredImage],
-    description: product.description
+    description: product.description,
+    media: product.media.edges.map(({ node }) => {
+      return {
+        image: {
+          src: node.previewImage.url
+        }
+      }
+    })
   }
 
   // Clean up 
@@ -139,14 +161,14 @@ export default async function Page({ params }) {
   const { data: { product } } = shopifyData
   // console.log('product', product)
   const updatedProduct = transformProduct(product)
-  // console.log('updatedProduct', updatedProduct)
+  console.log('updatedProduct', updatedProduct.content.media)
 
   // Contentful
   const contentfulData = await getContentfulData(handle)
   const content = contentfulData.items[0].fields
-  console.log('content', content)
+  // console.log('content', content)
   const updatedContent = transformContent(content)
-  console.log('updatedContent', updatedContent)
+  // console.log('updatedContent', updatedContent)
 
   const sections = content.sections
   
