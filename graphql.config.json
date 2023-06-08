@@ -1,12 +1,47 @@
 {
-    "schema": "https://storefront.api.nacelle.com/graphql/v1/spaces/72a24667-f319-438a-b302-7f12c84ef470",
-    "documents": "src/**/*.{graphql,js,ts,jsx,tsx}",
-    "extensions": {
-        "codegen": {
-            "ignoreNoDocuments": true,
-            "generates": {
-                "./src/gql/": {
-                    "preset": "client"
+    "projects": {
+        "nacelle" : {
+            "schema": [
+                "https://storefront.api.nacelle.com/graphql/v1/spaces/72a24667-f319-438a-b302-7f12c84ef470"
+            ],
+            "documents": "src/**/*.{graphql,js,ts,jsx,tsx}",
+            "extensions": {
+                "codegen": {
+                    "ignoreNoDocuments": true,
+                    "pluckConfig": {
+                        "gqlMagicComment": "graphql:nacelle"
+                    },
+                    "generates": {
+                        "./src/gql/nacelle/": {
+                            "preset": "client"
+                        }
+                    }
+                }
+            }
+        },
+        "shopify" : {
+            "schema": [
+                {
+                    "https://thinx-headless-staging.myshopify.com/api/2023-04/graphql.json": {
+                        "headers": {
+                            "X-Shopify-Storefront-Access-Token": "9ca5e973e87cfc133334bfe40f508b09"
+                        }
+                    }
+                }
+            ],
+            "documents": "src/**/*.{graphql,js,ts,jsx,tsx}",
+            "extensions": {
+                "codegen": {
+                    "ignoreNoDocuments": true,
+                    "pluckConfig": {
+                        "gqlMagicComment": "graphql:shopify",
+                        "globalGqlIdentifierName": ["gql", "graphql"]
+                    },
+                    "generates": {
+                        "./src/gql/shopify/": {
+                            "preset": "client"
+                        }
+                    }
                 }
             }
         }

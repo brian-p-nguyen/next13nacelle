@@ -8,6 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "codegen": "graphql-codegen",
+    "codegen:shopify": "graphql-codegen --config graphql.config.json --project shopify",
+    "codegen:nacelle": "graphql-codegen --config graphql.config.json --project nacelle",
+    "codegen:all": "graphql-codegen --config graphql.config.json --project nacelle && graphql-codegen --config graphql.config.json --project shopify",
     "codegen:watch": "graphql-codegen --watch"
   },
   "dependencies": {
@@ -23,6 +26,7 @@
     "@types/react-dom": "18.0.11",
     "algoliasearch": "^4.17.1",
     "autoprefixer": "10.4.14",
+    "contentful": "^10.2.3",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
     "next": "^13.4.4",
