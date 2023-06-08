@@ -22,8 +22,8 @@ export default async function Home() {
     page && (
       <div className="bg-white">
         {sections?.map((section, index) => (
-          <div>
-          <Section key={index} content={section} />
+          <div key={index}>
+            <Section key={index} content={section} />
           </div>
         ))}
       </div>
