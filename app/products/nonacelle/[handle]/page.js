@@ -39,6 +39,7 @@ async function getShopifyData(handle) {
             media(first: 50) {
               edges {
                 node {
+                  mediaContentType
                   previewImage {
                     url
                   }
@@ -108,9 +109,8 @@ function transformProduct(product) {
     description: product.description,
     media: product.media.edges.map(({ node }) => {
       return {
-        image: {
-          src: node.previewImage.url
-        }
+        type: node.mediaContentType,
+        src: node.previewImage.url,
       }
     })
   }
