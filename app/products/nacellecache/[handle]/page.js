@@ -1,9 +1,10 @@
+import nacelleClient from "@/app/services/nacelleClient";
+import { PRODUCT_PAGE_QUERY, PRODUCT_ROUTES_QUERY } from '@/app/queries/productPage';
 import { ProductProvider } from '@/app/context/Product';
 import ProductDetails from '@/app/components/Product/ProductDetails';
 import ProductReview from '@/app/components/Product/ProductReview';
 import Section from '@/app/components/Section/Section';
-import { getShopifyProduct} from "./getShopifyData";
-import { getContentfulData } from "./getContentfulData";
+import { getNacelleData, resolveNacelleData } from './getNacelleData'
 
 export async function generateStaticParams() {
   // const { data } = await nacelleClient.query({
@@ -20,27 +21,29 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }) {
   const handle = params?.handle;
-
-  // Shopify 
-  const product = await getShopifyProduct(handle)
-
-  // Contentful
-  const content = await getContentfulData(handle)
   
-  const sections = content.fields.sections
-  const productid = product.id;
+  // Cached functions
+  const data = await getNacelleData(handle)
+  const page = await resolveNacelleData(data)
+
+  // Set Variables
+  const product = data.products.edges[0].node
+  const fields = page?.fields || {};
+  const { sections, ...rest } = fields ;
+  const content = { fields: rest };
+  const productid = product.nacelleEntryId.replace('=', '');
   const price = product.variants[0].price;
   const currency = 'USD';
   const url =
     'https://next-magento-cms-stripe.vercel.app/' +
     'products/' +
-    product.handle;
-  const imageurl = product.content?.media[0].url;
+    product.content?.handle;
+  const imageurl = product.content?.media[0].src;
 
   return (
     product && (
       <div className="bg-white">
-        <ProductProvider product={product} key={product.id}>
+        <ProductProvider product={product} key={product.nacelleEntryId}>
           <ProductDetails content={content} />
         </ProductProvider>
         {sections?.map((section, index) => (

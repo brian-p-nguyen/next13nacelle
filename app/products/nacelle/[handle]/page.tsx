@@ -1,10 +1,10 @@
-import nacelleClient from "../../../services/nacelleClient";
+import nacelleClient from "@/app/services/nacelleClient";
 import { PRODUCT_PAGE_QUERY, PRODUCT_ROUTES_QUERY } from '../../../queries/productPage';
-import { resolvePageData } from '../../../utils/resolvers/resolvePageData';
-import { ProductProvider } from '../../../context/Product';
-import ProductDetails from '../../../components/Product/ProductDetails';
-import ProductReview from '../../../components/Product/ProductReview';
-import Section from '../../../components/Section/Section';
+import { resolvePageData } from '@/app/utils/resolvers/resolvePageData';
+import { ProductProvider } from '@/app/context/Product';
+import ProductDetails from '@/app/components/Product/ProductDetails';
+import ProductReview from '@/app/components/Product/ProductReview';
+import Section from '@/app/components/Section/Section';
 import type {
   Content,
   ContentEdge,

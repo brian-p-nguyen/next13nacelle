@@ -37,7 +37,7 @@ const FeaturedProducts = ({ content }) => {
           "
           >
             {content.fields.products.map((product) => (
-              <ProductProvider product={product} key={product.nacelleEntryId}>
+              <ProductProvider product={product} key={product.nacelleEntryId || product.id}>
                 <ProductCard />
               </ProductProvider>
             ))}
