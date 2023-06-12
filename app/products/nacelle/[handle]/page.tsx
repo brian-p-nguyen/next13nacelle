@@ -38,6 +38,7 @@ export default async function Page({ params }: { params: { handle: string } }) {
   
   const { page } = await resolvePageData({
     client: nacelleClient,
+    products: data.products,
     page: data?.pages.edges[0]?.node
   });
 
