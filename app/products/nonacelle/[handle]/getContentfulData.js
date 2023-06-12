@@ -24,15 +24,7 @@ const transformContent = (content) =>  {
 
 const resolveFeaturedProducts = async (section) => {
     try {
-        // Get all Referenced Product IDs and Query Contentful to get product handles
-        const productContentIDs =  section?.fields?.products.map(({ sys }) => sys.id)
-
-        const referencedProducts = await contentfulClient.getEntries({
-            content_type: 'partProduct',
-            'sys.id[in]': productContentIDs.toString()
-        })
-
-        const productHandles = referencedProducts?.items.map((product) => {
+        const productHandles = section.fields.products.map((product) => {
             return product.fields.handle.split('::')[0]
         })
             
@@ -80,7 +72,8 @@ const resolvePageData = async (page) => {
 export const getContentfulData = async (handle) => {
     const contentfulData = await contentfulClient.getEntries({
       content_type: 'pageProduct',
-      'fields.handle[like]': `page-${handle}`
+      'fields.handle[like]': `page-${handle}`,
+      include: 2
     })
 
     const content = contentfulData.items[0].fields
