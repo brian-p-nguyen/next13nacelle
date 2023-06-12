@@ -1,6 +1,6 @@
 import { resolveFeaturedProducts } from './resolveFeaturedProducts';
 
-export const resolvePageData = async ({ client, page }) => {
+export const resolvePageData = async ({ client, products, page }) => {
   try {
     const sections = await Promise.all(
       page?.fields?.sections?.map((section) => {
@@ -16,12 +16,13 @@ export const resolvePageData = async ({ client, page }) => {
       })
     );
     return {
+      products,
       page: {
         ...page,
         fields: { ...page.fields, sections }
       }
     };
   } catch {
-    return { page };
+    return { page, products: [] };
   }
 };

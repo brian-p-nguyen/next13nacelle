@@ -23,11 +23,10 @@ export default async function Page({ params }) {
   const handle = params?.handle;
   
   // Cached functions
-  const data = await getNacelleData(handle)
-  const page = await resolveNacelleData(data)
+  const { products, page } = await getNacelleData(handle)
 
   // Set Variables
-  const product = data.products.edges[0].node
+  const product = products.edges[0].node
   const fields = page?.fields || {};
   const { sections, ...rest } = fields ;
   const content = { fields: rest };

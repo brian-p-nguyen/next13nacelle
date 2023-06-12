@@ -14,7 +14,7 @@ export const PRODUCT_ROUTES_QUERY = `
 }
 `;
 
-export const PRODUCT_PAGE_QUERY = `
+export const PRODUCT_PAGE_QUERY = /* GraphQL */ `
   query ProductPage($handle: String!, $pageHandle: String!) {
     products: allProducts(filter: { handles: [$handle] }) {
       edges {
