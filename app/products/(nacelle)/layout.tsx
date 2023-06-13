@@ -1,4 +1,4 @@
-import './globals.css'
+import '../../globals.css'
 import Layout from '@/app/components/Layout/Layout'
 import nacelleClient from '@/app/services/nacelleClient'
 import { resolveSiteData } from '@/app/utils/resolvers/resolveSiteData'
@@ -14,17 +14,19 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // const data = await nacelleClient
-  //   .query({ query: SITE_QUERY })
-  //   .then(({ data }) => {
-  //     return resolveSiteData({ client: nacelleClient, site: data });
-  //   });
-  // const { space, products, ...rest } = data;
+  const data = await nacelleClient
+    .query({ query: SITE_QUERY })
+    .then(({ data }) => {
+      return resolveSiteData({ client: nacelleClient, site: data });
+    });
+  const { space, products, ...rest } = data;
 
   return (
     <html lang="en">
       <body>
+        <Layout components={rest}>
           {children}
+        </Layout>
       </body>
     </html>
   )

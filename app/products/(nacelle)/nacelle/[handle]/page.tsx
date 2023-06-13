@@ -1,5 +1,5 @@
 import nacelleClient from "@/app/services/nacelleClient";
-import { PRODUCT_PAGE_QUERY, PRODUCT_ROUTES_QUERY } from '../../../queries/productPage';
+import { PRODUCT_PAGE_QUERY, PRODUCT_ROUTES_QUERY } from '@/app/queries/productPage';
 import { resolvePageData } from '@/app/utils/resolvers/resolvePageData';
 import { ProductProvider } from '@/app/context/Product';
 import ProductDetails from '@/app/components/Product/ProductDetails';
