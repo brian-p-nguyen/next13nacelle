@@ -41,11 +41,11 @@ const transformProduct = (shopifyProduct) => {
 }
 
 export const getShopifyProduct = (handle) => {
-    const shopifyProduct = fetch('https://nacelle-international.myshopify.com/api/2023-04/graphql.json', {
+    const shopifyProduct = fetch(process.env.NEXT_PUBLIC_SHOPIFY_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': 'bc9ecf8fd6b77893805f6a61990331e9'
+        'X-Shopify-Storefront-Access-Token': process.env.NEXT_PUBLIC_SHOPIFY_ACCESS_TOKEN
       },
       body: JSON.stringify({
         query: `
