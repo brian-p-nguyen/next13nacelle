@@ -12,6 +12,9 @@ import type {
   ProductEdge
 } from '@nacelle/commerce-queries-plugin';
 
+export const revalidate = 10
+export const runtime = 'edge'
+
 export async function generateStaticParams() {
   // const { data } = await nacelleClient.query({
   //   query: PRODUCT_ROUTES_QUERY
@@ -28,6 +31,7 @@ export async function generateStaticParams() {
 export default async function Page({ params }: { params: { handle: string } }) {
   const handle = params?.handle;
   
+  console.log("Requesting data from Nacelle")
   const { data } = await nacelleClient.query({
       query: PRODUCT_PAGE_QUERY,
       variables: JSON.stringify({

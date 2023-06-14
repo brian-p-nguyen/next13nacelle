@@ -6,6 +6,9 @@ import ProductReview from '@/app/components/Product/ProductReview';
 import Section from '@/app/components/Section/Section';
 import { getNacelleData, resolveNacelleData } from './getNacelleData'
 
+export const revalidate = 10
+export const runtime = 'edge'
+
 export async function generateStaticParams() {
   // const { data } = await nacelleClient.query({
   //   query: PRODUCT_ROUTES_QUERY

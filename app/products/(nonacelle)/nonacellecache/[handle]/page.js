@@ -6,6 +6,9 @@ import { getShopifyProduct} from "./getShopifyData";
 import { getContentfulData } from "./getContentfulData";
 import { cache } from 'react'
 
+export const revalidate = 10
+export const runtime = 'edge'
+
 export async function generateStaticParams() {
   // const { data } = await nacelleClient.query({
   //   query: PRODUCT_ROUTES_QUERY
@@ -23,6 +26,8 @@ export default async function Page({ params }) {
   const handle = params?.handle;
 
   const getPDPData = cache(async (handle) => {
+    console.log("Requesting data Not from Nacelle Cache")
+
     // Shopify 
     const productData = getShopifyProduct(handle)
 

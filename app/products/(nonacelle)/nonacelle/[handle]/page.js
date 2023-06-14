@@ -5,6 +5,9 @@ import Section from '@/app/components/Section/Section';
 import { getShopifyProduct} from "./getShopifyData";
 import { getContentfulData } from "./getContentfulData";
 
+export const revalidate = 10
+export const runtime = 'edge'
+
 export async function generateStaticParams() {
   // const { data } = await nacelleClient.query({
   //   query: PRODUCT_ROUTES_QUERY
