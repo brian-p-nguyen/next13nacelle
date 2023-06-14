@@ -11,8 +11,6 @@ export const getNacelleData = cache(async (handle) => {
         pageHandle: `page-${handle}`
       })
     }).then(({ data }) => {
-      console.log('innerdata', data)
-
       return resolvePageData({
         client: nacelleClient,
         products: data.products,
@@ -22,9 +20,3 @@ export const getNacelleData = cache(async (handle) => {
 
     return data
   })
-
-// export const resolveNacelleData = cache(async (data) => {
-//     const { page } = await 
-    
-//     return page
-// })

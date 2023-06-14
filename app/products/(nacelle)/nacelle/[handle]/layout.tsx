@@ -1,4 +1,4 @@
-import '../../globals.css'
+import '../../../../globals.css'
 import Layout from '@/app/components/Layout/Layout'
 import nacelleClient from '@/app/services/nacelleClient'
 import { resolveSiteData } from '@/app/utils/resolvers/resolveSiteData'

@@ -24,10 +24,12 @@ export default async function Page({ params }) {
 
   const getPDPData = cache(async (handle) => {
     // Shopify 
-    const product = await getShopifyProduct(handle)
+    const productData = getShopifyProduct(handle)
 
     // Contentful
-    const content = await getContentfulData(handle)
+    const contentData = getContentfulData(handle)
+
+    const [product, content] = await Promise.all([productData, contentData])
 
     return {
       product,

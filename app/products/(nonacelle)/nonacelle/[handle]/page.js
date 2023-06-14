@@ -22,11 +22,13 @@ export default async function Page({ params }) {
   const handle = params?.handle;
 
   // Shopify 
-  const product = await getShopifyProduct(handle)
+  const productData = getShopifyProduct(handle)
 
   // Contentful
-  const content = await getContentfulData(handle)
+  const contentData = getContentfulData(handle)
   
+  const [product, content] = await Promise.all([productData, contentData])
+
   const sections = content.fields.sections
   const productid = product.id;
   const price = product.variants[0].price;
