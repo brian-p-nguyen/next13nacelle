@@ -6,8 +6,7 @@ import { getShopifyProduct} from "./getShopifyData";
 import { getContentfulData } from "./getContentfulData";
 import { cache } from 'react'
 
-export const revalidate = 10
-export const runtime = 'edge'
+export const revalidate = 15
 
 export async function generateStaticParams() {
   // const { data } = await nacelleClient.query({

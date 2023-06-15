@@ -5,8 +5,7 @@ import Section from '@/app/components/Section/Section';
 import { getShopifyProduct} from "./getShopifyData";
 import { getContentfulData } from "./getContentfulData";
 
-export const revalidate = 10
-export const runtime = 'edge'
+export const revalidate = 15
 
 export async function generateStaticParams() {
   // const { data } = await nacelleClient.query({
@@ -22,6 +21,8 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }) {
+  console.log("Requesting data Not from Nacelle")
+
   const handle = params?.handle;
 
   // Shopify 

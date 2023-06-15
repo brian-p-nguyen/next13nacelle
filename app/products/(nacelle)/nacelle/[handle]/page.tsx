@@ -12,8 +12,7 @@ import type {
   ProductEdge
 } from '@nacelle/commerce-queries-plugin';
 
-export const revalidate = 10
-export const runtime = 'edge'
+export const revalidate = 15
 
 export async function generateStaticParams() {
   // const { data } = await nacelleClient.query({
