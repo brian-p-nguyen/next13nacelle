@@ -78,7 +78,7 @@ export const getContentfulData = async (handle) => {
 
     const content = contentfulData.items[0].fields
     const transformedContent = transformContent(content)
-    const { page: resolvedContent } = await resolvePageData(transformedContent);
+    // const { page: resolvedContent } = await resolvePageData(transformedContent);
 
-    return resolvedContent
+    return transformedContent
 }

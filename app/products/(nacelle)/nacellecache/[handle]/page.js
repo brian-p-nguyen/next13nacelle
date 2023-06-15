@@ -25,11 +25,11 @@ export default async function Page({ params }) {
   const handle = params?.handle;
   
   // Cached functions
-  const { products, page } = await getNacelleData(handle)
+  const { data } = await getNacelleData(handle)
 
   // Set Variables
-  const product = products.edges[0].node
-  const fields = page?.fields || {};
+  const product = data.products.edges[0].node
+  const fields = data?.pages.edges[0]?.node.fields || {};
   const { sections, ...rest } = fields ;
   const content = { fields: rest };
   const productid = product.nacelleEntryId.replace('=', '');

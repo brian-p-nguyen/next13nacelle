@@ -39,14 +39,14 @@ export default async function Page({ params }: { params: { handle: string } }) {
       })
     });
   
-  const { page } = await resolvePageData({
-    client: nacelleClient,
-    products: data.products,
-    page: data?.pages.edges[0]?.node
-  });
+  // const { page } = await resolvePageData({
+  //   client: nacelleClient,
+  //   products: data.products,
+  //   page: data?.pages.edges[0]?.node
+  // });
 
   const product = data.products.edges[0].node
-  const fields = page?.fields || {};
+  const fields = data?.pages.edges[0]?.node.fields || {};
   const { sections, ...rest } = fields as { sections: Array<{ type: string }> };
   const content: Pick<Content, 'fields'> = { fields: rest };
   const productid = product.nacelleEntryId.replace('=', '');
