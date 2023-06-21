@@ -16,15 +16,32 @@ export default async function RootLayout({
 }) {
   const data = await nacelleClient
     .query({ query: SITE_QUERY })
-    .then(({ data }) => {
-      return resolveSiteData({ client: nacelleClient, site: data });
-    });
-  const { space, ...rest } = data;
+    // .then(({ data }) => {
+    //   return resolveSiteData({ client: nacelleClient, site: data });
+    // });
+
+  let {header, newsletter, footer } = data.data;
+
+  if (header) {
+    header = [header.edges[0].node];
+  }
+  if (newsletter) {
+    newsletter = [newsletter.edges[0].node];
+  }
+  if (footer) {
+    footer = [footer.edges[0].node];
+  }
+  
+  const content = {
+    header,
+    newsletter,
+    footer
+  }
 
   return (
     <html lang="en">
       <body>
-        <Layout components={rest}>
+        <Layout components={content}>
           {children}
         </Layout>
       </body>

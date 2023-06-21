@@ -18,21 +18,37 @@ export default async function RootLayout({
   const getNacelleLayout = cache(async () => {
     const data = await nacelleClient
     .query({ query: SITE_QUERY })
-    .then(({ data }) => {
-      return resolveSiteData({ client: nacelleClient, site: data });
-    });
+    // .then(({ data }) => {
+    //   return resolveSiteData({ client: nacelleClient, site: data });
+    // });
 
     return data
   })
 
   const data = await getNacelleLayout();
 
-  const { space, ...rest } = data;
+  let {header, newsletter, footer } = data.data;
+
+  if (header) {
+    header = [header.edges[0].node];
+  }
+  if (newsletter) {
+    newsletter = [newsletter.edges[0].node];
+  }
+  if (footer) {
+    footer = [footer.edges[0].node];
+  }
+  
+  const content = {
+    header,
+    newsletter,
+    footer
+  }
 
   return (
     <html lang="en">
       <body>
-        <Layout components={rest}>
+        <Layout components={content}>
           {children}
         </Layout>
       </body>
