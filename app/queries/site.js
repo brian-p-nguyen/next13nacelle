@@ -23,27 +23,5 @@ export const SITE_QUERY = `
     cart: allContent(filter: { type: "componentCart",  handles: ["component-cart"] }) {
       ${CONTENT_QUERY_FRAGMENT}
     }
-    products: allProducts {
-      edges {
-        node {
-          nacelleEntryId
-          content {
-            handle
-            title
-            featuredMedia {
-              src
-              thumbnailSrc
-              altText
-            }
-          }
-          variants {
-            price
-            compareAtPrice
-            priceCurrency
-            quantityAvailable
-          }
-        }
-      }
-    }
   }
 `;

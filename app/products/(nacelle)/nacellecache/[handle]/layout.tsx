@@ -27,7 +27,7 @@ export default async function RootLayout({
 
   const data = await getNacelleLayout();
 
-  const { space, products, ...rest } = data;
+  const { space, ...rest } = data;
 
   return (
     <html lang="en">

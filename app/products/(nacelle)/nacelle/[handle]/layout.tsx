@@ -19,7 +19,7 @@ export default async function RootLayout({
     .then(({ data }) => {
       return resolveSiteData({ client: nacelleClient, site: data });
     });
-  const { space, products, ...rest } = data;
+  const { space, ...rest } = data;
 
   return (
     <html lang="en">
