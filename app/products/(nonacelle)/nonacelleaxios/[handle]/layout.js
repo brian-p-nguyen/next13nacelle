@@ -48,12 +48,7 @@ async function getContentfulLayout() {
 }
 
 export default async function RootLayout({ children }) {
-	const getCachedLayout = cache(async () => {
-		const layout = await getContentfulLayout();
-		return layout;
-	})
-
-	const layoutContent = await getCachedLayout();
+	const layoutContent = await getContentfulLayout();
 
 	return (
 		<html lang="en">
