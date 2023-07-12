@@ -11,7 +11,10 @@ export const options = {
 }
 
 export default function main() {
-  const response = http.get('https://next13nacelle.vercel.app/products/nonacellecache/otto-shirt'); // Replace with your website URL
+  const url = 'https://next13nacelle.vercel.app/products/nonacellecache/otto-shirt'
+  // console.log(`Running test on ${url}`)
+
+  const response = http.get(url);
 
   // Check if the response was successful
   check(response, {

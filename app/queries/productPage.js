@@ -74,6 +74,63 @@ export const PRODUCT_PAGE_QUERY = /* GraphQL */ `
   }
 `;
 
+export const PRODUCT_QUERY = /* GraphQL */ `
+  query ProductPage($handle: String!) {
+    products: allProducts(filter: { handles: [$handle] }) {
+      edges {
+        node {
+          nacelleEntryId
+          sourceEntryId
+          metafields {
+            key
+            value
+          }
+          content {
+            handle
+            title
+            description
+            options {
+              name
+              values
+            }
+            media {
+              type
+              src
+              altText
+            }
+          }
+          variants {
+            nacelleEntryId
+            sourceEntryId
+            sku
+            availableForSale
+            price
+            priceCurrency
+            compareAtPrice
+            quantityAvailable
+            metafields {
+              key
+              value
+            }
+            content {
+              title
+              selectedOptions {
+                name
+                value
+              }
+              featuredMedia {
+                src
+                thumbnailSrc
+                altText
+              }
+            }
+          }    
+        }
+      }
+    }
+  }
+`;
+
 export const PRODUCT_PAGE_CONTENT = `
   query ProductPage($filter: ContentFilterInput) {
     pages: allContent(filter: $filter) {
