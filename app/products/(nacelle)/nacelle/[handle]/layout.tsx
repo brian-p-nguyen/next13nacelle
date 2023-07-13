@@ -2,7 +2,7 @@ import '../../../../globals.css'
 import Layout from '@/app/components/Layout/Layout'
 import nacelleClient from '@/app/services/nacelleClient'
 import { resolveSiteData } from '@/app/utils/resolvers/resolveSiteData'
-import { HEADER_QUERY, NEWSLETTER_QUERY, FOOTER_QUERY } from '@/app/queries/site'
+import { SITE_QUERY } from '@/app/queries/site'
 
 export const metadata = {
   title: 'Create Next App',
@@ -14,20 +14,11 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const headerData = nacelleClient
-    .query({ query: HEADER_QUERY })
+  const data = await nacelleClient
+    .query({ query: SITE_QUERY })
 
-  const newsletterData = nacelleClient
-    .query({ query: NEWSLETTER_QUERY })
-
-  const footerData = nacelleClient
-    .query({ query: FOOTER_QUERY })
-
-  let [{ data: { header }}
-     , { data: { newsletter }}
-     , { data: { footer }}
-    ] = await Promise.all([headerData, newsletterData, footerData])
-
+  let {header, newsletter, footer } = data.data;
+  
   if (header) {
     header = [header.edges[0].node];
   }
