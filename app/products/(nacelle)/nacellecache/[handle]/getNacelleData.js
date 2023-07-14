@@ -4,7 +4,7 @@ import { PRODUCT_PAGE_QUERY } from '@/app/queries/productPage';
 import { resolvePageData } from '@/app/utils/resolvers/resolvePageData';
 
 export const getNacelleData = cache(async (handle) => {
-  console.log("Requesting data from Nacelle Cache")
+    console.log("Requesting data from Nacelle Cache")
 
     const data = await nacelleClient.query({
       query: PRODUCT_PAGE_QUERY,
@@ -12,13 +12,14 @@ export const getNacelleData = cache(async (handle) => {
         handle: handle,
         pageHandle: `page-${handle}`
       })
-    }).then(({ data }) => {
-      return resolvePageData({
-        client: nacelleClient,
-        products: data.products,
-        page: data?.pages.edges[0]?.node,
-      }) 
     })
+    // .then(({ data }) => {
+    //   return resolvePageData({
+    //     client: nacelleClient,
+    //     products: data.products,
+    //     page: data?.pages.edges[0]?.node,
+    //   }) 
+    // })
 
     return data
   })

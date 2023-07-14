@@ -1,12 +1,18 @@
 import nacelleClient from "@/app/services/nacelleClient";
 import { PRODUCT_PAGE_QUERY, PRODUCT_ROUTES_QUERY } from '@/app/queries/productPage';
+import { resolvePageData } from '@/app/utils/resolvers/resolvePageData';
 import { ProductProvider } from '@/app/context/Product';
 import ProductDetails from '@/app/components/Product/ProductDetails';
 import ProductReview from '@/app/components/Product/ProductReview';
 import Section from '@/app/components/Section/Section';
-import { getNacelleData, resolveNacelleData } from './getNacelleData'
+import type {
+  Content,
+  ContentEdge,
+  Product,
+  ProductEdge
+} from '@nacelle/commerce-queries-plugin';
 
-export const revalidate = 15
+export const revalidate = 0
 
 export async function generateStaticParams() {
   // const { data } = await nacelleClient.query({
@@ -21,17 +27,28 @@ export async function generateStaticParams() {
   return [{handle: 'otto-shirt'}]
 }
 
-export default async function Page({ params }) {
+export default async function Page({ params }: { params: { handle: string } }) {
   const handle = params?.handle;
   
-  // Cached functions
-  const { data } = await getNacelleData(handle)
+  console.log("Requesting data from Nacelle")
+  const { data } = await nacelleClient.query({
+      query: PRODUCT_PAGE_QUERY,
+      variables: JSON.stringify({
+        handle: handle,
+        pageHandle: `page-${handle}`
+      })
+    });
+  
+  // const { page } = await resolvePageData({
+  //   client: nacelleClient,
+  //   products: data.products,
+  //   page: data?.pages.edges[0]?.node
+  // });
 
-  // Set Variables
   const product = data.products.edges[0].node
   const fields = data?.pages.edges[0]?.node.fields || {};
-  const { sections, ...rest } = fields ;
-  const content = { fields: rest };
+  const { sections, ...rest } = fields as { sections: Array<{ type: string }> };
+  const content: Pick<Content, 'fields'> = { fields: rest };
   const productid = product.nacelleEntryId.replace('=', '');
   const price = product.variants[0].price;
   const currency = 'USD';

@@ -4,14 +4,17 @@ import http from 'k6/http'
 // See https://k6.io/docs/using-k6/options
 export const options = {
   stages: [
-    { duration: '1m', target: 50 },
-    { duration: '1m', target: 50 },
-    { duration: '1m', target: 0 },
+    { duration: '1m', target: 10 },
+    { duration: '2m', target: 50 },
+    { duration: '3m', target: 100 },
   ]
 }
 
 export default function main() {
-  const response = http.get('https://next13nacelle.vercel.app/products/nacellecache/otto-shirt'); // Replace with your website URL
+  const url = 'https://next13nacelle.vercel.app/products/nonacellecache/otto-shirt'
+  // console.log(`Running test on ${url}`)
+
+  const response = http.get(url);
 
   // Check if the response was successful
   check(response, {

@@ -20,30 +20,29 @@ export const SITE_QUERY = `
     footer: allContent(filter: { type: "componentFooter", handles: ["component-footer"] }) {
       ${CONTENT_QUERY_FRAGMENT} 
     }
-    cart: allContent(filter: { type: "componentCart",  handles: ["component-cart"] }) {
+  }
+`;
+
+export const HEADER_QUERY = `
+  {
+    header: allContent(filter: { type: "componentHeader", handles: ["component-header"] }) {
       ${CONTENT_QUERY_FRAGMENT}
     }
-    products: allProducts {
-      edges {
-        node {
-          nacelleEntryId
-          content {
-            handle
-            title
-            featuredMedia {
-              src
-              thumbnailSrc
-              altText
-            }
-          }
-          variants {
-            price
-            compareAtPrice
-            priceCurrency
-            quantityAvailable
-          }
-        }
-      }
+  }
+`;
+
+export const NEWSLETTER_QUERY = `
+  {
+    newsletter: allContent(filter: { type: "componentNewsletter", handles: ["component-newsletter"] }) {
+      ${CONTENT_QUERY_FRAGMENT}
+    }
+  }
+`;
+
+export const FOOTER_QUERY = `
+  {
+    footer: allContent(filter: { type: "componentFooter", handles: ["component-footer"] }) {
+      ${CONTENT_QUERY_FRAGMENT} 
     }
   }
 `;

@@ -19,3 +19,11 @@ export const CONTENT_PAGE_QUERY = `
     }
   }
 `;
+
+export const PRODUCT_CONTENT_QUERY = `
+  query ContentPage($handle: String!) {
+    pages: allContent(filter: { type: "pageProduct", handles: [$handle] }) {
+      ${CONTENT_QUERY_FRAGMENT}
+    }
+  }
+`;
